@@ -1,16 +1,24 @@
 package model;
+
+import java.util.LinkedList;
+import java.util.List;
+
 public class Estacionamento {
+	
+	private Hora[] horarioFuncionamento;
+	private List<Acesso> acessos;
 	
 	private int capacidade;
 	private double retornoContratante;
 	private boolean situacaoCapacidade;
+	
 	
 	public Estacionamento() {
 		//
 	}
 	
 	public Estacionamento(String nome, int cap, double retorno, boolean permissaoEntrada ) {
-		//
+		
 	}
 	
 	public boolean setSituacaoCapacidade(boolean s ) {
@@ -18,12 +26,18 @@ public class Estacionamento {
 		return situacaoCapacidade;
 	}
 	
-	public void calcularTotalContratante() {
-		//
+	public double calcularTotalContratante() {
+		pesquisarAcesso();
+		return retornoContratante;
 	}
 	
-	public void pesquisarAcesso() {
-		//
+	public Acesso pesquisarAcesso(String placaCarro) {
+		for (Acesso a : acessos) {
+			if (a.getPlacaCarro() == placaCarro ) {
+				return a;
+			}
+		}
+		return null;
 	}
 
 }
