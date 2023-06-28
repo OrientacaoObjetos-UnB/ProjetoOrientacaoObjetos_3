@@ -1,5 +1,7 @@
 package model;
 
+import java.time.Instant;
+
 public class Hora {
 	
 	private int hora;
