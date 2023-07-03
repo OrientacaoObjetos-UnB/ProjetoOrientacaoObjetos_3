@@ -24,7 +24,6 @@ public class AcessoHoraCheia extends AcessoEspecial{
 		int[] referenciaHoras = new int[2];
 		int[] referenciaMinutos = new int[2];
 		int[] diferenca = new int[2];
-		boolean casoEspecial = false;
 		
 		referenciaHoras[0] = tempoPermanencia.get(0).getHora();
 		referenciaHoras[1] = tempoPermanencia.get(1).getHora();
@@ -36,8 +35,20 @@ public class AcessoHoraCheia extends AcessoEspecial{
 		if (referenciaHoras[0] > referenciaHoras[1]) {
 			diferenca[0] = (24 - referenciaHoras[0]) + (referenciaHoras[1]);
 			if (referenciaMinutos[0] != 0) {
-				casoEspecial = true;
-			} 
+				diferenca[0] -= 1;
+				diferenca[1] = 60 - referenciaMinutos[0];
+				if ((diferenca[1] + referenciaMinutos[1]) >= 60) {
+					diferenca[0] += 1;
+					diferenca[1] = Math.abs(diferenca[1] - 60);
+				}
+				else {
+					diferenca[1] += referenciaMinutos[1];
+				}
+			}
+			else {
+				diferenca[1] = referenciaMinutos[1];
+			}
+			return diferenca;
 		}
 		else if (referenciaHoras[0] == referenciaHoras[1]) {
 			diferenca[0] = 0;
@@ -46,9 +57,21 @@ public class AcessoHoraCheia extends AcessoEspecial{
 			diferenca[0] = referenciaHoras[1] - referenciaHoras[0];
 		}
 		
+		// ========================================
+		// CALCULO DA DIFERENÇA DE MINUTOS E HORAS:
+		if (referenciaMinutos[0] > referenciaMinutos[1]) {
+			diferenca[0] -= 1;
+			diferenca[1] = 60 - (referenciaMinutos[0] - referenciaMinutos[1]);
+		}
+		else if (referenciaMinutos[0] < referenciaMinutos[1]) {
+			diferenca[1] = (referenciaMinutos[1] - referenciaMinutos[0]);
+		}
+		else {
+			diferenca[1] = 0;
+		}
+		
 		return diferenca;
 	}
-	
 	
 	
 }
