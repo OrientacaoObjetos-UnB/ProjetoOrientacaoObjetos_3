@@ -1,7 +1,5 @@
 package model;
 
-import java.time.Instant;
-
 public class Hora {
 	
 	private int hora;
@@ -18,7 +16,13 @@ public class Hora {
 	}
 	
 	public void juntar() {
-		this.horaMinuto = hora + " : " + minuto;
+		
+		if(minuto < 10) {
+			this.horaMinuto = hora + " : " + "0" + minuto;
+		}
+		else {
+			this.horaMinuto = hora + " : " + minuto;
+		}
 	}
 	
 	public int converterMinuto() {

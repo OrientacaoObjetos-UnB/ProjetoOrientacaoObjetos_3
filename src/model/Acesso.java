@@ -5,12 +5,13 @@ import java.util.List;
 
 
 public class Acesso {
+	
+	private List<Hora> entradaSaida;
 
 	private String placaCarro;
 	private double valorAcesso;
 	private String tipoAcesso;
 	private double valorContrato;
-	private List<Hora> entradaSaida;
 	
 	private Acesso() {
 		
