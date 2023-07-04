@@ -8,34 +8,52 @@ public class Estacionamento {
 	private List<Hora> horarioFuncionamento;
 	private List<Acesso> acessos;
 	
+	private String nome;
 	private int capacidade;
 	private double retornoContratante;
 	private boolean situacaoCapacidade;
 	
 	
-	private Estacionamento() {
-		acessos = new LinkedList<Acesso>();
-		horarioFuncionamento = new LinkedList<Hora>();
-	}
-	
-	public Estacionamento(int cap, double retorno) {
+	public Estacionamento(String n, int cap, double retorno, int hI, int mI, int hF, int mF) {
 		acessos = new LinkedList<Acesso>();
 		horarioFuncionamento = new LinkedList<Hora>();
 		this.capacidade = cap;
 		this.retornoContratante = retorno;
+		this.nome = n;
+		this.situacaoCapacidade = true;
+		setHorarioFuncionamento(hI, mI, hF, mF);
+	}
+
+	public void setRetornoContratante(double rC) {
+		this.retornoContratante = rC;
 	}
 	
-	public Estacionamento(int cap, double retorno, boolean permissaoEntrada ) {
-		acessos = new LinkedList<Acesso>();
-		horarioFuncionamento = new LinkedList<Hora>();
-		this.capacidade = cap;
-		this.retornoContratante = retorno;
-		this.situacaoCapacidade = permissaoEntrada;
+	public double getRetornoContratante() {
+		return retornoContratante;
 	}
 	
-	public boolean setSituacaoCapacidade(boolean s) {
+	public void setSituacaoCapacidade(boolean s) {
 		this.situacaoCapacidade = s;
+	}
+	
+	public boolean getSituacaoCapacidade() {
 		return situacaoCapacidade;
+	}
+	
+	public void setNome(String n) {
+		this.nome = n;
+	}
+	
+	public String getNome() {
+		return nome;
+	}
+	
+	public void setCapacidade(int c) {
+		this.capacidade = c;
+	}
+	
+	public int getCapacidade() {
+		return capacidade;
 	}
 	
 	public double calcularTotalContratante() {
@@ -44,13 +62,18 @@ public class Estacionamento {
 		double resultadoFinal = 0;
 		double valorReal;
 		
-		for(Acesso v: lista) {
-			resultadoFinal += v.getValorAcesso();
+		if (lista.size() == 0) {
+			return 0;
 		}
-		
-		valorReal = (resultadoFinal*retornoContratante)/100;
-		
-		return valorReal;
+		else {
+			for(Acesso v: lista) {
+				resultadoFinal += v.getValorAcesso();
+			}
+			
+			valorReal = (resultadoFinal*retornoContratante)/100;
+			
+			return valorReal;	
+		}
 	}
 	
 	public void setHorarioFuncionamento(int hI, int mI, int hF, int mF) {

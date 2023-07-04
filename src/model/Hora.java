@@ -18,10 +18,10 @@ public class Hora {
 	public void juntar() {
 		
 		if(minuto < 10) {
-			this.horaMinuto = hora + " : " + "0" + minuto;
+			this.horaMinuto = hora + ":" + "0" + minuto;
 		}
 		else {
-			this.horaMinuto = hora + " : " + minuto;
+			this.horaMinuto = hora + ":" + minuto;
 		}
 	}
 	
