@@ -17,17 +17,14 @@ public class Acesso {
 		
 	}
 	
-	public Acesso(String placa, String tipo) {
+	public Acesso(String placa) {
 		entradaSaida = new LinkedList<Hora>();
 		this.placaCarro = placa;
-		this.tipoAcesso = tipo;
 	}
 	
-	public Acesso(String placa, String tipo, int horaEntrada, int minutoEntrada, int minutoSaida) {
+	public Acesso(String placa, int horaEntrada, int minutoEntrada, int minutoSaida) {
 		entradaSaida = new LinkedList<Hora>();
 		this.placaCarro = placa;
-		this.tipoAcesso = tipo;
-		
 	}
 	
 	public void setPlacaCarro(String placa) {
@@ -38,7 +35,7 @@ public class Acesso {
 		return placaCarro;
 	}
 	
-	public void serValorAcesso(double valor) {
+	public void setValorAcesso(double valor) {
 		this.valorAcesso = valor;
 	}
 	
