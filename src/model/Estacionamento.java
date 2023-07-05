@@ -102,7 +102,7 @@ public class Estacionamento {
 	
 	public void removeAcessos(String placa) {
 		for(Acesso v: acessos) {
-			if(v.getPlacaCarro() == placa) {
+			if(v.getPlacaCarro().equals(placa)) {
 				acessos.remove(v);
 			}
 		}

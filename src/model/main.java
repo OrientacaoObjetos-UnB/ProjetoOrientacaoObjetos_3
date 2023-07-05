@@ -99,7 +99,7 @@ public class main {
 			else {
 				for (Estacionamento e: banco) {
 					System.out.println("\n\n");
-					System.out.println("Nome do Estacionamento: " + e.getNome() + "\nCapacidade: " + e.getCapacidade()
+					System.out.println("Nome do Estacionamento: " + e.getNome() + "\nCapacidade: " + e.getAcessos().size() + "/" + e.getCapacidade()
 					+ "\nPorcentagem de Retorno: " + e.getRetornoContratante() + "%\nHorário de Funcionamento: Das " +
 					e.getHorarioFuncionamento().get(0).getHoraMinuto() + " até " + e.getHorarioFuncionamento().get(1).getHoraMinuto());
 					
@@ -108,10 +108,10 @@ public class main {
 					
 				}
 				System.out.println("\n\n\n");
-				System.out.println("Dê scroll para cima para visualizar os seus registros.\n\n");
-				aplicarDelay(7000);
-				System.out.println("===================================\n\nEscolha uma das Opções:\n\n(1) Verificar Acessos;\n(2) Apagar Estacionamento;\n"
-				+ "(3) Voltar ao Menu Principal\n\nDigite: ");
+				System.out.println("Dê scroll para cima para visualizar os seus registros.\nAguarde...\n\n");
+				aplicarDelay(5000);
+				System.out.println("===================================\n\nEscolha uma das Opções:\n\n(1) Pesquisar Estacionamento\n(2) Verificar Acessos;\n(3) Apagar Estacionamento;\n"
+				+ "(4) Voltar ao Menu Principal\n\nDigite: ");
 				int resposta = 0; 
 				
 				resposta = scanner.nextInt();
@@ -124,18 +124,54 @@ public class main {
 			
 			switch (escolha) {
 				case 1:
-					escolha1_1(banco);
+					escolha0(banco);
 					break;
 				case 2:
-				escolha1_2(banco);
+					escolha1_1(banco);
 					break;
 				case 3:
+				escolha1_2(banco);
+					break;
+				case 4:
 					limparPrompt();
 					System.out.println("Redirecinando ao menu principal, Aguarde...");
 					aplicarDelay(3000);
 					exibirMenuPrincipal(banco);
 			}
 			
+		}
+
+		public static void escolha0(List<Estacionamento> banco) {
+			
+			Scanner scanner = new Scanner(System.in);
+
+			String valorPesquisa;
+
+			limparPrompt();
+			System.out.println("Digite o nome do estacionamento de interesse:\n");
+			valorPesquisa = scanner.next();
+
+			for (Estacionamento e: banco) {
+				if (e.getNome().equals(valorPesquisa)) {
+					limparPrompt();
+					System.out.println("Nome do Estacionamento: " + e.getNome() + "\nCapacidade: " + e.getAcessos().size() + "/" + e.getCapacidade()
+					+ "\nPorcentagem de Retorno: " + e.getRetornoContratante() + "%\nHorário de Funcionamento: Das " +
+					e.getHorarioFuncionamento().get(0).getHoraMinuto() + " até " + e.getHorarioFuncionamento().get(1).getHoraMinuto());
+					
+					System.out.println("\n\n LUCRO TOTAL: R$" +  e.calcularTotalContratante() + "\n\n");
+
+					System.out.println("Aguarde...");
+					aplicarDelay(4000);
+					escolha1(banco);
+					return;
+				}
+			
+			}
+			limparPrompt();
+			System.out.println("Estacionamento inexistente!");
+			aplicarDelay(4000);
+			escolha1(banco);
+			return;
 		}
 		
 		public static void escolha1_1(List<Estacionamento> banco) {
@@ -147,7 +183,7 @@ public class main {
 			int resposta = 0;
 			int contador = 0;
 			
-			while (resposta < 1 || resposta > contador) {
+			while (resposta < 1 || resposta >= contador) {
 				contador ++;
 				
 				System.out.println("\n\n");
@@ -162,7 +198,7 @@ public class main {
 				System.out.println("Digite: ");
 				resposta = scanner.nextInt();
 				
-				if (resposta < 1 || resposta > contador) {
+				if (resposta < 1 || resposta >= contador) {
 					limparPrompt();
 					System.out.println("Selecione dentre as opções listadas!");
 					aplicarDelay(5000);
@@ -171,11 +207,10 @@ public class main {
 				}
 				
 			}
-
 			
 			limparPrompt();
 			System.out.println("==================================================\n         ACESSOS LIBERADOS:\n========="
-					+ "=========================================\n\n");
+					+ "=========================================");
 			
 			if (banco.get(resposta - 1).getAcessos().size() == 0) {
 				System.out.println("\n\nSem Nenhum Acesso! Faça Acessos através do menu princial.");
@@ -185,12 +220,113 @@ public class main {
 			else {
 				for (Acesso v: banco.get(resposta -1).getAcessos()) {
 
-					System.out.println("Placa do veículo: " + v.getPlacaCarro() + "\n\n");
+					System.out.println("\n\nPlaca do veículo: " + v.getPlacaCarro() + "\n\n");
 					System.out.println("==================================================");
-
 				}
+				
+				int resposta2 = 0;
+				System.out.println("\n\nDê scroll para cima para visualizar os seus registros.\nAguarde...\n");
+				aplicarDelay(5000);
+				
+				while (resposta2 < 1 || resposta2 > 3) {
+					System.out.println("===================================\n\nEscolha uma das Opções:\n\n(1) Apagar Acesso;\n(2) Voltar para a lista de Estacionamentos;\n"
+					+ "(3) Voltar ao Menu Principal\n\nDigite: ");
+					resposta2 = scanner.nextInt();
+
+					if (resposta2 < 1 || resposta2 > 3) {
+						limparPrompt();
+						System.out.println("Escolha dentre as opções disponíveis!");
+						aplicarDelay(3000);
+					}
+					else {
+						switch (resposta2) {
+							case 1:
+								escolha1_1_1(banco, resposta - 1);
+								break;
+							case 2:
+								escolha1(banco);
+								break;
+							case 3:
+								exibirMenuPrincipal(banco);
+								break;
+						}
+					}
+				}
+
 			}
 			
+		}
+
+		public static void escolha1_1_1(List<Estacionamento> banco, int referencia) {
+			
+			limparPrompt();
+			Scanner scanner = new Scanner(System.in);
+
+			String resposta = "";
+			int contador = 1;
+			boolean inexistencia = true;
+
+			while (inexistencia) {
+				
+				System.out.println("Qual acesso você gostaria de apagar?\n");
+			
+				for(Acesso v: banco.get(referencia).getAcessos()) {
+					System.out.println("(" + contador + ") " + v.getPlacaCarro());
+					contador++;
+				}
+	
+				System.out.println("\nDigite o nome da placa que deseja Apagar:\n");
+				resposta = scanner.next();
+	
+				
+				for (Acesso v: banco.get(referencia).getAcessos()) {
+					if (v.getPlacaCarro().equals(resposta)){
+						inexistencia = false;
+					}
+				}
+				if (inexistencia) {
+					limparPrompt();
+					System.out.println("Escolha dentre as opções listadas!");
+					aplicarDelay(3000);
+					contador = 1;
+					limparPrompt();
+				}
+			}
+
+			banco.get(referencia).removeAcessos(resposta);
+			limparPrompt();
+			System.out.println("Acesso Apagado!");
+			banco.get(referencia).setSituacaoCapacidade(true);
+			aplicarDelay(3000);
+
+			int resposta2 = 0;
+
+			limparPrompt();
+
+			while (resposta2 < 1 || resposta2 > 2) {
+
+				System.out.println("===================================\n\nEscolha uma das Opções:\n\n(1) Voltar para o Menu Principals;\n(2) Voltar para a Lista de Estacionamentos\n"
+				+ "\n\nDigite:");
+				resposta2 = scanner.nextInt();
+
+				if (resposta2 < 1 || resposta2 > 2) {
+					limparPrompt();
+					System.out.println("Escolha dentre as opções listadas!");
+					aplicarDelay(3000);
+				}
+			}
+
+			switch (resposta2) {
+				case 1:
+					limparPrompt();
+					System.out.println("Redirecinando ao menu principal, Aguarde...");
+					aplicarDelay(3000);
+					exibirMenuPrincipal(banco);
+					break;
+				case 2:
+					escolha1(banco);
+					break;
+			}
 		}
 
 		public static void escolha1_2(List<Estacionamento> banco) {
@@ -434,13 +570,14 @@ public class main {
 				}
 				
 				String placa;
+				limparPrompt();
 				System.out.println("Insira a placa do Carro:\n");
 				placa = scanner.next();
 				
 				banco.get(resposta - 1).setAcessos(placa);
 				
 				if (banco.get(resposta - 1).getAcessos().size() == banco.get(resposta - 1).getCapacidade()) {
-
+					banco.get(resposta - 1).setSituacaoCapacidade(false);
 				}
 
 				limparPrompt();
