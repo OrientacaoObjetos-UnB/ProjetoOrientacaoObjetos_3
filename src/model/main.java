@@ -183,7 +183,7 @@ public class main {
 			int resposta = 0;
 			int contador = 0;
 			
-			while (resposta < 1 || resposta >= contador) {
+			while (resposta < 1 || resposta > contador) {
 				contador ++;
 				
 				System.out.println("\n\n");
@@ -194,17 +194,22 @@ public class main {
 					System.out.println("(" + contador + ") " + e.getNome() + "\n");
 					contador ++;
 				}
-				
-				System.out.println("Digite: ");
+					System.out.println("(" + contador + ") Retornar à Pagina anterior");
+
+				System.out.println("\nDigite: ");
 				resposta = scanner.nextInt();
 				
-				if (resposta < 1 || resposta >= contador) {
+				if (resposta == contador) {
+					escolha1(banco);
+				}
+				if (resposta < 1 || resposta > contador) {
 					limparPrompt();
 					System.out.println("Selecione dentre as opções listadas!");
 					aplicarDelay(5000);
 					limparPrompt();
 					contador = 0;
 				}
+
 				
 			}
 			
@@ -271,13 +276,20 @@ public class main {
 				System.out.println("Qual acesso você gostaria de apagar?\n");
 			
 				for(Acesso v: banco.get(referencia).getAcessos()) {
-					System.out.println("(" + contador + ") " + v.getPlacaCarro());
+					System.out.println("(" + contador + ") " + v.getPlacaCarro() + "\n");
 					contador++;
 				}
-	
-				System.out.println("\nDigite o nome da placa que deseja Apagar:\n");
+					System.out.println("(" + contador + ") Cancelar");
+
+				System.out.println("\nDigite o nome da placa que deseja Apagar ou digite 'Cancelar' para voltar à página "
+				 + "anterior:\n");
 				resposta = scanner.next();
 	
+				if (resposta == "Cancelar" || resposta == "cancelar") {
+					limparPrompt();
+					escolha1_1(banco);
+					return;
+				}
 				
 				for (Acesso v: banco.get(referencia).getAcessos()) {
 					if (v.getPlacaCarro().equals(resposta)){
@@ -286,7 +298,7 @@ public class main {
 				}
 				if (inexistencia) {
 					limparPrompt();
-					System.out.println("Escolha dentre as opções listadas!");
+					System.out.println("Placa não registrada! Digite o nome da placa corretamente");
 					aplicarDelay(3000);
 					contador = 1;
 					limparPrompt();
@@ -340,7 +352,7 @@ public class main {
 			int resposta = 0;
 			int contador = 0;
 
-			while (resposta < 1 || resposta >= contador) {
+			while (resposta < 1 || resposta > contador) {
 				contador++;
 
 				System.out.println("Qual estacionamento você gostaria de apagar?\n");
@@ -349,12 +361,14 @@ public class main {
 					System.out.println("(" + contador + ") " + e.getNome());
 					contador++;
 				}
-	
+					System.out.println("\n(" + contador + ") Retornar à página anterior");
 				System.out.println("\nDigite a sua opção:\n");
 				resposta = scanner.nextInt();
 	
-				
-				if (resposta < 1 || resposta >= contador) {
+				if (resposta == contador) {
+					escolha1(banco);
+				}
+				if (resposta < 1 || resposta > contador) {
 					limparPrompt();
 					System.out.println("Escolha dentre as opções listadas!");
 					aplicarDelay(3000);
@@ -535,7 +549,7 @@ public class main {
 				int contador = 0;
 				boolean situacaoLotado = false;
 				
-				while (resposta < 1 || resposta >= contador || situacaoLotado == false) {
+				while (resposta < 1 || resposta > contador || situacaoLotado == false) {
 					contador ++;
 					
 					System.out.println("\n\n");
@@ -546,16 +560,24 @@ public class main {
 						System.out.println("(" + contador + ") " + e.getNome() + "\n");
 						contador ++;
 					}
+						System.out.println("(" + contador + ") Voltar ao Menu Principal\n");
 					
 					System.out.println("Digite: ");
 					resposta = scanner.nextInt();
 					
-					if (resposta < 1 || resposta >= contador) {
+					if (resposta < 1 || resposta > contador) {
 						limparPrompt();
 						System.out.println("Selecione dentre as opções listadas!");
 						aplicarDelay(5000);
 						limparPrompt();
 						contador = 0;
+					}
+
+					if (resposta == contador) {
+						limparPrompt();
+						System.out.println("Redirecinando ao menu principal, Aguarde...");
+						aplicarDelay(3000);
+						exibirMenuPrincipal(banco);
 					}
 
 					situacaoLotado = banco.get(resposta - 1).getSituacaoCapacidade();
