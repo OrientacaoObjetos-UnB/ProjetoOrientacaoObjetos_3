@@ -2,11 +2,11 @@
 // GERENCIADOR DE ACESSOS DE VEÍCULOS
 // GRUPO:
 
-// * Daniel Rodrigues da Rocha;
-// * Bruno;
-// * Amanda;
-// * Jésus Gabriel;
-// * Gabriel Fenelon.
+// * DANIEL RODRIGUES DA ROCHA - 211061583;
+// * BRUNO RICARDO DE MENEZES - ;
+// * AMANDA DE MOURA DA SILVA - 221022220;
+// * JÉSUS GABRIEL CARVALHO VENTURA - 211062956;
+// * GABRIEL FENELON ROCHA GONÇALVES - 211061743.
 
 // VERSÃO 1.0
 
