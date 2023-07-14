@@ -5,10 +5,12 @@ import java.util.List;
 
 public class ValorAcesso {
 	
+	private List<AcessoEvento> valorEvento;
+	private AcessoHoraCheia valorHoraCheia;
+	
 	private double fracao;
 	private double diurno;
 	private double mensalista; 
-	private List<AcessoEvento> valorEvento; 
 	
 	public void ValoresAcessos(double ValorMensalista, double ValorFracao, double ValorDiurno) {
 		valorEvento = new LinkedList<AcessoEvento>();
@@ -18,10 +20,8 @@ public class ValorAcesso {
 		this.diurno = ValorDiurno;	
 		 
 	}
-	public void setNovoEvento(String n, double v) {
-		AcessoEvento evento = new AcessoEvento(n,v);
-		
-		valorEvento.add(evento); 
+	public void setNovoEvento(AcessoEvento e) {
+		valorEvento.add(e); 
 	}
 	public List<AcessoEvento> getNovoEvento() {
 		return valorEvento;
@@ -45,6 +45,12 @@ public class ValorAcesso {
 	public void setDiurno(double ValorDiurno) {
 		this.diurno = ValorDiurno;
 		
+	}
+	public AcessoHoraCheia getValorHoraCheia() {
+		return valorHoraCheia;
+	}
+	public void setValorHoraCheia(AcessoHoraCheia valorHoraCheia) {
+		this.valorHoraCheia = valorHoraCheia;
 	} 
 }  		
 		

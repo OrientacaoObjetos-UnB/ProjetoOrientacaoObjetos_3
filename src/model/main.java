@@ -23,13 +23,15 @@ public class main {
 		
 		// VARIÁVEIS NECESSÁRIAS PARA O SISTEMA:
 		List<Estacionamento> registros;
+		List<AcessoEvento> registroE;
 		
 		
 		// INSTÂNCIAS NECESSÁRIAS PARA O SISTEMA:
 		registros = new LinkedList<Estacionamento>();
+		registroE = new LinkedList<AcessoEvento>();
 		
 		// INÍCIO DO SISTEMA:
-		exibirMenuPrincipal(registros);
+		exibirMenuPrincipal(registros, registroE);
 		
 		
 		
@@ -37,7 +39,7 @@ public class main {
 	}
 	
 	// FUNÇÕES(métodos) NECESSÁRIAS PARA O FUNCIONAMENTO DO SISTEMA:
-		public static void exibirMenuPrincipal(List<Estacionamento> banco) {
+		public static void exibirMenuPrincipal(List<Estacionamento> banco, List<AcessoEvento> bancoE) {
 			
 			int escolha = 0;
 			Scanner scanner = new Scanner(System.in);
@@ -45,27 +47,33 @@ public class main {
 			limparPrompt();
 			System.out.println("==================================================\n   GERENCIADOR DE ACESSOS DE ESTACIONAMENTO:\n\n"
 					+ "Digite a Opção desejada:\n\n" + "(1) Visualizar Estacionamentos;\n(2) Criar um Estacionamento\n"
-					+ "(3) Criar um Acesso \n\n================================================== \n\n");
+					+ "(3) Criar um Acesso\n(4) Configurar Preços\n(5) Adicionar Evento \n\n================================================== \n\n");
 			
 				System.out.println("Digite: ");
 				escolha = scanner.nextInt();
-				distribuidoraDaEscolha(escolha, banco);
+				distribuidoraDaEscolha(escolha, banco, bancoE);
 		}
 		
-		public static void distribuidoraDaEscolha(int escolha, List<Estacionamento> banco) {
+		public static void distribuidoraDaEscolha(int escolha, List<Estacionamento> banco, List<AcessoEvento> bancoE) {
 			
 			switch (escolha) {
 			
 				case 1:
-					escolha1(banco);
+					escolha1(banco, bancoE);
 					break;
 				
 				case 2:
-					escolha2(banco);
+					escolha2(banco, bancoE);
 					break;
 					
 				case 3:
-					escolha3(banco);
+					escolha3(banco, bancoE);
+					break;
+				case 4:
+					escolha4(banco, bancoE);
+					break;
+				case 5:
+					escolha5(banco, bancoE);
 					break;
 					
 				default:
@@ -73,13 +81,13 @@ public class main {
 					System.out.println("Digite somente o número, dentro das possibilidades mencionadas! \n\n Direcionando ao menu...");
 					aplicarDelay(3000);
 					limparPrompt();
-					exibirMenuPrincipal(banco);
+					exibirMenuPrincipal(banco, bancoE);
 			}
 			
 			
 		}
 		
-		public static void escolha1(List<Estacionamento> banco) {
+		public static void escolha1(List<Estacionamento> banco, List<AcessoEvento> bancoE) {
 			
 			Scanner scanner = new Scanner(System.in);
 			
@@ -94,7 +102,7 @@ public class main {
 				limparPrompt();
 				System.out.println("Redirecinando ao menu principal, Aguarde...");
 				aplicarDelay(3000);
-				exibirMenuPrincipal(banco);
+				exibirMenuPrincipal(banco, bancoE);
 			}
 			else {
 				for (Estacionamento e: banco) {
@@ -115,33 +123,33 @@ public class main {
 				int resposta = 0; 
 				
 				resposta = scanner.nextInt();
-				distribuicaoEscolha2(resposta, banco);
+				distribuicaoEscolha2(resposta, banco, bancoE);
 				
 				}
 			}
 		
-		public static void distribuicaoEscolha2(int escolha, List<Estacionamento> banco) {
+		public static void distribuicaoEscolha2(int escolha, List<Estacionamento> banco, List<AcessoEvento> bancoE) {
 			
 			switch (escolha) {
 				case 1:
-					escolha0(banco);
+					escolha0(banco, bancoE);
 					break;
 				case 2:
-					escolha1_1(banco);
+					escolha1_1(banco, bancoE);
 					break;
 				case 3:
-				escolha1_2(banco);
+				escolha1_2(banco, bancoE);
 					break;
 				case 4:
 					limparPrompt();
 					System.out.println("Redirecinando ao menu principal, Aguarde...");
 					aplicarDelay(3000);
-					exibirMenuPrincipal(banco);
+					exibirMenuPrincipal(banco, bancoE);
 			}
 			
 		}
 
-		public static void escolha0(List<Estacionamento> banco) {
+		public static void escolha0(List<Estacionamento> banco, List<AcessoEvento> bancoE) {
 			
 			Scanner scanner = new Scanner(System.in);
 
@@ -162,7 +170,7 @@ public class main {
 
 					System.out.println("Aguarde...");
 					aplicarDelay(4000);
-					escolha1(banco);
+					escolha1(banco, bancoE);
 					return;
 				}
 			
@@ -170,11 +178,11 @@ public class main {
 			limparPrompt();
 			System.out.println("Estacionamento inexistente!");
 			aplicarDelay(4000);
-			escolha1(banco);
+			escolha1(banco, bancoE);
 			return;
 		}
 		
-		public static void escolha1_1(List<Estacionamento> banco) {
+		public static void escolha1_1(List<Estacionamento> banco, List<AcessoEvento> bancoE) {
 			
 			// INSTÂNCIAS NECESSÁRIAS PARA A FUNÇÃO:
 			Scanner scanner = new Scanner(System.in);
@@ -200,7 +208,7 @@ public class main {
 				resposta = scanner.nextInt();
 				
 				if (resposta == contador) {
-					escolha1(banco);
+					escolha1(banco, bancoE);
 				}
 				if (resposta < 1 || resposta > contador) {
 					limparPrompt();
@@ -220,7 +228,7 @@ public class main {
 			if (banco.get(resposta - 1).getAcessos().size() == 0) {
 				System.out.println("\n\nSem Nenhum Acesso! Faça Acessos através do menu princial.");
 				aplicarDelay(3000);
-				escolha1(banco);
+				escolha1(banco, bancoE);
 			}
 			else {
 				for (Acesso v: banco.get(resposta -1).getAcessos()) {
@@ -246,13 +254,13 @@ public class main {
 					else {
 						switch (resposta2) {
 							case 1:
-								escolha1_1_1(banco, resposta - 1);
+								escolha1_1_1(banco, resposta - 1, bancoE);
 								break;
 							case 2:
-								escolha1(banco);
+								escolha1(banco, bancoE);
 								break;
 							case 3:
-								exibirMenuPrincipal(banco);
+								exibirMenuPrincipal(banco, bancoE);
 								break;
 						}
 					}
@@ -262,7 +270,7 @@ public class main {
 			
 		}
 
-		public static void escolha1_1_1(List<Estacionamento> banco, int referencia) {
+		public static void escolha1_1_1(List<Estacionamento> banco, int referencia, List<AcessoEvento> bancoE) {
 			
 			limparPrompt();
 			Scanner scanner = new Scanner(System.in);
@@ -287,7 +295,7 @@ public class main {
 	
 				if (resposta == "Cancelar" || resposta == "cancelar") {
 					limparPrompt();
-					escolha1_1(banco);
+					escolha1_1(banco, bancoE);
 					return;
 				}
 				
@@ -333,15 +341,15 @@ public class main {
 					limparPrompt();
 					System.out.println("Redirecinando ao menu principal, Aguarde...");
 					aplicarDelay(3000);
-					exibirMenuPrincipal(banco);
+					exibirMenuPrincipal(banco, bancoE);
 					break;
 				case 2:
-					escolha1(banco);
+					escolha1(banco, bancoE);
 					break;
 			}
 		}
 
-		public static void escolha1_2(List<Estacionamento> banco) {
+		public static void escolha1_2(List<Estacionamento> banco, List<AcessoEvento> bancoE) {
 
 			limparPrompt();
 			// CLASSE PARA APAGAR UM ESTACIONAMENTO
@@ -366,7 +374,7 @@ public class main {
 				resposta = scanner.nextInt();
 	
 				if (resposta == contador) {
-					escolha1(banco);
+					escolha1(banco, bancoE);
 				}
 				if (resposta < 1 || resposta > contador) {
 					limparPrompt();
@@ -402,10 +410,10 @@ public class main {
 							limparPrompt();
 							System.out.println("Redirecinando ao menu principal, Aguarde...");
 							aplicarDelay(3000);
-							exibirMenuPrincipal(banco);
+							exibirMenuPrincipal(banco, bancoE);
 							break;
 						case 2:
-							escolha1(banco);
+							escolha1(banco, bancoE);
 							break;
 					}
 				}
@@ -414,7 +422,7 @@ public class main {
 		} 
 			
 		
-		public static void escolha2(List<Estacionamento> banco) {
+		public static void escolha2(List<Estacionamento> banco, List<AcessoEvento> bancoE) {
 			
 			// INSTÂNCIAS NECESSÁRIAS PARA A FUNÇÃO:
 			Scanner scanner = new Scanner(System.in);
@@ -522,11 +530,11 @@ public class main {
 				
 				
 			}
-				exibirMenuPrincipal(banco);
+				exibirMenuPrincipal(banco, bancoE);
 			
 		}
 		
-		public static void escolha3(List<Estacionamento> banco) {
+		public static void escolha3(List<Estacionamento> banco, List<AcessoEvento> bancoE) {
 			
 			// INSTÂNCIAS NECESSÁRIAS PARA A FUNÇÃO:
 			Scanner scanner = new Scanner(System.in);
@@ -542,7 +550,7 @@ public class main {
 				limparPrompt();
 				System.out.println("Redirecinando ao menu principal, Aguarde...");
 				aplicarDelay(3000);
-				exibirMenuPrincipal(banco);
+				exibirMenuPrincipal(banco, bancoE);
 			}
 			else {
 				int resposta = 0;
@@ -577,7 +585,7 @@ public class main {
 						limparPrompt();
 						System.out.println("Redirecinando ao menu principal, Aguarde...");
 						aplicarDelay(3000);
-						exibirMenuPrincipal(banco);
+						exibirMenuPrincipal(banco, bancoE);
 					}
 
 					situacaoLotado = banco.get(resposta - 1).getSituacaoCapacidade();
@@ -605,9 +613,17 @@ public class main {
 				limparPrompt();
 				System.out.println("Acesso Liberado!");
 				aplicarDelay(3000);
-				exibirMenuPrincipal(banco);
+				exibirMenuPrincipal(banco, bancoE);
 				
 			}
+		}
+		
+		public static void escolha4(List<Estacionamento> banco, List<AcessoEvento> bancoE) {
+			
+		}
+		
+		public static void escolha5(List<Estacionamento> banco, List<AcessoEvento> bancoE) {
+			
 		}
 		
 		public static void limparPrompt() {

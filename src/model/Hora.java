@@ -6,8 +6,6 @@ public class Hora {
 	private int minuto;
 	private String horaMinuto;
 	
-	private Hora() {};
-	
 	public Hora(int h, int min) {
 		this.hora = h;
 		this.minuto = min;
